@@ -1,0 +1,23 @@
+services:
+  chromadb-demo-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chromadb-demo-api
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  chromadb-demo-streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chromadb-demo-streamlit
+    command: streamlit run upload_document.py --server.address=0.0.0.0 --server.port=8501
+    env_file:
+      - .env
+    ports:
+      - "8501:8501"
+    restart: unless-stopped
